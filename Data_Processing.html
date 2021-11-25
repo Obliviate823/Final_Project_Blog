@@ -1,0 +1,4484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="Pelican" />
+        <title>Data Processing</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Obliviate Final Project Atom Feed" />
+        <meta name="description" content="Data Processing¶ This project uses MIMIC III v1.4 as the main dataset. We choose the variable hospital_expire_flag in ADMISSIONS.csv file as..." />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">Obliviate Final Project</a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/data-processing.html">Data Processing</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/Data_Processing.html" rel="bookmark"
+           title="Permalink to Data Processing">Data Processing</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-10-24T00:00:00-04:00">
+                Published: Sun 24 October 2021
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/obliviate.html">Obliviate</a>
+        </address>
+<p>In <a href="/category/data-processing.html">Data Processing</a>.</p>
+
+</footer><!-- /.post-info -->      <style type="text/css">/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI escape sequences */
+/* The color values are a mix of
+   http://www.xcolors.net/dl/baskerville-ivorylight and
+   http://www.xcolors.net/dl/euphrasia */
+.ansi-black-fg {
+  color: #3E424D;
+}
+.ansi-black-bg {
+  background-color: #3E424D;
+}
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+.ansi-black-intense-bg {
+  background-color: #282C36;
+}
+.ansi-red-fg {
+  color: #E75C58;
+}
+.ansi-red-bg {
+  background-color: #E75C58;
+}
+.ansi-red-intense-fg {
+  color: #B22B31;
+}
+.ansi-red-intense-bg {
+  background-color: #B22B31;
+}
+.ansi-green-fg {
+  color: #00A250;
+}
+.ansi-green-bg {
+  background-color: #00A250;
+}
+.ansi-green-intense-fg {
+  color: #007427;
+}
+.ansi-green-intense-bg {
+  background-color: #007427;
+}
+.ansi-yellow-fg {
+  color: #DDB62B;
+}
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+.ansi-yellow-intense-fg {
+  color: #B27D12;
+}
+.ansi-yellow-intense-bg {
+  background-color: #B27D12;
+}
+.ansi-blue-fg {
+  color: #208FFB;
+}
+.ansi-blue-bg {
+  background-color: #208FFB;
+}
+.ansi-blue-intense-fg {
+  color: #0065CA;
+}
+.ansi-blue-intense-bg {
+  background-color: #0065CA;
+}
+.ansi-magenta-fg {
+  color: #D160C4;
+}
+.ansi-magenta-bg {
+  background-color: #D160C4;
+}
+.ansi-magenta-intense-fg {
+  color: #A03196;
+}
+.ansi-magenta-intense-bg {
+  background-color: #A03196;
+}
+.ansi-cyan-fg {
+  color: #60C6C8;
+}
+.ansi-cyan-bg {
+  background-color: #60C6C8;
+}
+.ansi-cyan-intense-fg {
+  color: #258F8F;
+}
+.ansi-cyan-intense-bg {
+  background-color: #258F8F;
+}
+.ansi-white-fg {
+  color: #C5C1B4;
+}
+.ansi-white-bg {
+  background-color: #C5C1B4;
+}
+.ansi-white-intense-fg {
+  color: #A1A6B2;
+}
+.ansi-white-intense-bg {
+  background-color: #A1A6B2;
+}
+.ansi-default-inverse-fg {
+  color: #FFFFFF;
+}
+.ansi-default-inverse-bg {
+  background-color: #000000;
+}
+.ansi-bold {
+  font-weight: bold;
+}
+.ansi-underline {
+  text-decoration: underline;
+}
+/* The following styles are deprecated an will be removed in a future version */
+.ansibold {
+  font-weight: bold;
+}
+.ansi-inverse {
+  outline: 0.5px dotted;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  position: relative;
+  overflow: visible;
+}
+div.cell:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: transparent;
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected,
+div.cell.selected.jupyter-soft-selected {
+  border-color: #ababab;
+}
+div.cell.selected:before,
+div.cell.selected.jupyter-soft-selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #42A5F5;
+}
+@media print {
+  div.cell.selected,
+  div.cell.selected.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+}
+.edit_mode div.cell.selected:before {
+  position: absolute;
+  display: block;
+  top: -1px;
+  left: -1px;
+  width: 5px;
+  height: calc(100% +  2px);
+  content: '';
+  background: #66BB6A;
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  min-width: 0;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell > div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area > div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area > div.highlight > pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the <head> if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  /* Note that this should set vertical padding only, since CodeMirror assumes
+       that horizontal padding will be set on CodeMirror pre */
+  padding: 0.4em 0;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. This sets horizontal padding only,
+    use .CodeMirror-lines for vertical */
+  padding: 0 0.4em;
+  border: 0;
+  border-radius: 0;
+}
+.CodeMirror-cursor {
+  border-left: 1.4px solid black;
+}
+@media screen and (min-width: 2138px) and (max-width: 4319px) {
+  .CodeMirror-cursor {
+    border-left: 2px solid black;
+  }
+}
+@media screen and (min-width: 4320px) {
+  .CodeMirror-cursor {
+    border-left: 4px solid black;
+  }
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev <Maniac@SoftwareManiacs.Org>
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+div.output_area .mglyph > img {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 1px 0 1px 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+.rendered_html ul:not(.list-inline),
+.rendered_html ol:not(.list-inline) {
+  padding-left: 2em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+
+
+
+.rendered_html pre,
+
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+
+.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+
+.rendered_html * + .alert {
+  margin-top: 1em;
+}
+[dir="rtl"] 
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell > div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.rendered .rendered_html tr,
+.text_cell.rendered .rendered_html th,
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.text_cell .dropzone .input_area {
+  border: 2px dashed #bababa;
+  margin: -1px;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+</style>
+<style type="text/css"> .highlight pre  .hll { background-color: #ffffcc }
+ .highlight pre   { background: #f8f8f8; }
+ .highlight pre  .c { color: #408080; font-style: italic } /* Comment */
+ .highlight pre  .err { border: 1px solid #FF0000 } /* Error */
+ .highlight pre  .k { color: #008000; font-weight: bold } /* Keyword */
+ .highlight pre  .o { color: #666666 } /* Operator */
+ .highlight pre  .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+ .highlight pre  .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+ .highlight pre  .cp { color: #BC7A00 } /* Comment.Preproc */
+ .highlight pre  .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+ .highlight pre  .c1 { color: #408080; font-style: italic } /* Comment.Single */
+ .highlight pre  .cs { color: #408080; font-style: italic } /* Comment.Special */
+ .highlight pre  .gd { color: #A00000 } /* Generic.Deleted */
+ .highlight pre  .ge { font-style: italic } /* Generic.Emph */
+ .highlight pre  .gr { color: #FF0000 } /* Generic.Error */
+ .highlight pre  .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+ .highlight pre  .gi { color: #00A000 } /* Generic.Inserted */
+ .highlight pre  .go { color: #888888 } /* Generic.Output */
+ .highlight pre  .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+ .highlight pre  .gs { font-weight: bold } /* Generic.Strong */
+ .highlight pre  .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+ .highlight pre  .gt { color: #0044DD } /* Generic.Traceback */
+ .highlight pre  .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+ .highlight pre  .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+ .highlight pre  .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+ .highlight pre  .kp { color: #008000 } /* Keyword.Pseudo */
+ .highlight pre  .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+ .highlight pre  .kt { color: #B00040 } /* Keyword.Type */
+ .highlight pre  .m { color: #666666 } /* Literal.Number */
+ .highlight pre  .s { color: #BA2121 } /* Literal.String */
+ .highlight pre  .na { color: #7D9029 } /* Name.Attribute */
+ .highlight pre  .nb { color: #008000 } /* Name.Builtin */
+ .highlight pre  .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+ .highlight pre  .no { color: #880000 } /* Name.Constant */
+ .highlight pre  .nd { color: #AA22FF } /* Name.Decorator */
+ .highlight pre  .ni { color: #999999; font-weight: bold } /* Name.Entity */
+ .highlight pre  .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+ .highlight pre  .nf { color: #0000FF } /* Name.Function */
+ .highlight pre  .nl { color: #A0A000 } /* Name.Label */
+ .highlight pre  .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+ .highlight pre  .nt { color: #008000; font-weight: bold } /* Name.Tag */
+ .highlight pre  .nv { color: #19177C } /* Name.Variable */
+ .highlight pre  .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+ .highlight pre  .w { color: #bbbbbb } /* Text.Whitespace */
+ .highlight pre  .mb { color: #666666 } /* Literal.Number.Bin */
+ .highlight pre  .mf { color: #666666 } /* Literal.Number.Float */
+ .highlight pre  .mh { color: #666666 } /* Literal.Number.Hex */
+ .highlight pre  .mi { color: #666666 } /* Literal.Number.Integer */
+ .highlight pre  .mo { color: #666666 } /* Literal.Number.Oct */
+ .highlight pre  .sa { color: #BA2121 } /* Literal.String.Affix */
+ .highlight pre  .sb { color: #BA2121 } /* Literal.String.Backtick */
+ .highlight pre  .sc { color: #BA2121 } /* Literal.String.Char */
+ .highlight pre  .dl { color: #BA2121 } /* Literal.String.Delimiter */
+ .highlight pre  .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+ .highlight pre  .s2 { color: #BA2121 } /* Literal.String.Double */
+ .highlight pre  .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+ .highlight pre  .sh { color: #BA2121 } /* Literal.String.Heredoc */
+ .highlight pre  .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+ .highlight pre  .sx { color: #008000 } /* Literal.String.Other */
+ .highlight pre  .sr { color: #BB6688 } /* Literal.String.Regex */
+ .highlight pre  .s1 { color: #BA2121 } /* Literal.String.Single */
+ .highlight pre  .ss { color: #19177C } /* Literal.String.Symbol */
+ .highlight pre  .bp { color: #008000 } /* Name.Builtin.Pseudo */
+ .highlight pre  .fm { color: #0000FF } /* Name.Function.Magic */
+ .highlight pre  .vc { color: #19177C } /* Name.Variable.Class */
+ .highlight pre  .vg { color: #19177C } /* Name.Variable.Global */
+ .highlight pre  .vi { color: #19177C } /* Name.Variable.Instance */
+ .highlight pre  .vm { color: #19177C } /* Name.Variable.Magic */
+ .highlight pre  .il { color: #666666 } /* Literal.Number.Integer.Long */</style><body><div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Data-Processing">Data Processing<a class="anchor-link" href="#Data-Processing">&#182;</a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This project uses MIMIC III v1.4 as the main dataset. We choose the variable <strong>hospital_expire_flag</strong> in <em>ADMISSIONS.csv</em> file as target variable, and we want to predict the death risk for patients who enter ICU for the first time. Therefore, our main purpose in data processing part is to find variables that related to the target variable for the next part of data analysis. To find these variables, we mainly use four files:
+<em>LABEVENTS.csv, ICUSTAYS.csv, ADMISSIONS.csv, D_LABITEMS.csv, PATIENTS.csv</em>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Load-libraries">Load libraries<a class="anchor-link" href="#Load-libraries">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Load-datasets">Load datasets<a class="anchor-link" href="#Load-datasets">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[142]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">icustays</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;ICUSTAYS.csv&#39;</span><span class="p">)</span>
+<span class="n">labevents</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;LABEVENTS.csv&#39;</span><span class="p">)</span>
+<span class="n">admissions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;ADMISSIONS.csv&#39;</span><span class="p">)</span>
+<span class="n">d_labitems</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;D_LABITEMS.csv&#39;</span><span class="p">)</span>
+<span class="n">patients</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;PATIENTS.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Icustays-Processing">Icustays Processing<a class="anchor-link" href="#Icustays-Processing">&#182;</a></h3><p>Firstly, we want to implement icustays processing, obtaining the time of each patient entering and leaving ICU for the first time, and the length of stay in ICU.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">icustays</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[5]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ROW_ID</th>
+      <th>SUBJECT_ID</th>
+      <th>HADM_ID</th>
+      <th>ICUSTAY_ID</th>
+      <th>DBSOURCE</th>
+      <th>FIRST_CAREUNIT</th>
+      <th>LAST_CAREUNIT</th>
+      <th>FIRST_WARDID</th>
+      <th>LAST_WARDID</th>
+      <th>INTIME</th>
+      <th>OUTTIME</th>
+      <th>LOS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>365</td>
+      <td>268</td>
+      <td>110404</td>
+      <td>280836</td>
+      <td>carevue</td>
+      <td>MICU</td>
+      <td>MICU</td>
+      <td>52</td>
+      <td>52</td>
+      <td>2198-02-14 23:27:38</td>
+      <td>2198-02-18 05:26:11</td>
+      <td>3.2490</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>366</td>
+      <td>269</td>
+      <td>106296</td>
+      <td>206613</td>
+      <td>carevue</td>
+      <td>MICU</td>
+      <td>MICU</td>
+      <td>52</td>
+      <td>52</td>
+      <td>2170-11-05 11:05:29</td>
+      <td>2170-11-08 17:46:57</td>
+      <td>3.2788</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>367</td>
+      <td>270</td>
+      <td>188028</td>
+      <td>220345</td>
+      <td>carevue</td>
+      <td>CCU</td>
+      <td>CCU</td>
+      <td>57</td>
+      <td>57</td>
+      <td>2128-06-24 15:05:20</td>
+      <td>2128-06-27 12:32:29</td>
+      <td>2.8939</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>368</td>
+      <td>271</td>
+      <td>173727</td>
+      <td>249196</td>
+      <td>carevue</td>
+      <td>MICU</td>
+      <td>SICU</td>
+      <td>52</td>
+      <td>23</td>
+      <td>2120-08-07 23:12:42</td>
+      <td>2120-08-10 00:39:04</td>
+      <td>2.0600</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>369</td>
+      <td>272</td>
+      <td>164716</td>
+      <td>210407</td>
+      <td>carevue</td>
+      <td>CCU</td>
+      <td>CCU</td>
+      <td>57</td>
+      <td>57</td>
+      <td>2186-12-25 21:08:04</td>
+      <td>2186-12-27 12:01:13</td>
+      <td>1.6202</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Change the &quot;INTIME&quot; and &quot;OUTTIME&quot; to datetime format, sort the icustays datafrmae by &quot;INTIME&quot;.</span>
+
+<span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;INTIME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;INTIME&#39;</span><span class="p">])</span>
+<span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;OUTTIME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;OUTTIME&#39;</span><span class="p">])</span>
+<span class="n">icustays</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;INTIME&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Delete rows with missing values in column &quot;OUTTIME&quot;</span>
+
+<span class="n">icustays</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">icustays</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;OUTTIME&#39;</span><span class="p">])]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Obtain the intime, outtime for each patient to enter the icu for the first time</span>
+<span class="c1"># Due to the sorting of intime, the data in the first row of each patient is the data entered into ICU for the first time</span>
+
+<span class="n">time_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">icustays</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">time_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">time_dict</span><span class="p">[</span><span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;INTIME&#39;</span> <span class="p">:</span> <span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;INTIME&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> 
+                                                <span class="s1">&#39;OUTTIME&#39;</span> <span class="p">:</span> <span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;OUTTIME&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Labevents-processing">Labevents processing<a class="anchor-link" href="#Labevents-processing">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Secondly, we want to implement labevents processing. Each row of the datasets represents the value of a certain item tested by a certain patient. A patient may have multiple tests for one item. For a certain item, we want to obtain the value of the patient's first test during the first time entering ICU.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">labevents</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[22]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ROW_ID</th>
+      <th>SUBJECT_ID</th>
+      <th>HADM_ID</th>
+      <th>ITEMID</th>
+      <th>CHARTTIME</th>
+      <th>VALUE</th>
+      <th>VALUENUM</th>
+      <th>VALUEUOM</th>
+      <th>FLAG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>281</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>50820</td>
+      <td>2101-10-12 16:07:00</td>
+      <td>7.39</td>
+      <td>7.39</td>
+      <td>units</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>282</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>50800</td>
+      <td>2101-10-12 18:17:00</td>
+      <td>ART</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>283</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>50802</td>
+      <td>2101-10-12 18:17:00</td>
+      <td>-1</td>
+      <td>-1.00</td>
+      <td>mEq/L</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>284</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>50804</td>
+      <td>2101-10-12 18:17:00</td>
+      <td>22</td>
+      <td>22.00</td>
+      <td>mEq/L</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>285</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>50808</td>
+      <td>2101-10-12 18:17:00</td>
+      <td>0.93</td>
+      <td>0.93</td>
+      <td>mmol/L</td>
+      <td>abnormal</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Only keep patients who have been in ICU</span>
+
+<span class="n">labevents_icu</span> <span class="o">=</span> <span class="n">labevents</span><span class="p">[[(</span><span class="n">sub_id</span> <span class="ow">in</span> <span class="n">time_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">for</span> <span class="n">sub_id</span> <span class="ow">in</span> <span class="n">labevents</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">]]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Change the &quot;CHARTTIME&quot; to datetime format, sort the labevents_icu datafrmae by &quot;INTIME&quot;.</span>
+
+<span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;CHARTTIME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;CHARTTIME&#39;</span><span class="p">])</span>
+<span class="n">labevents_icu</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;CHARTTIME&#39;</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>&lt;ipython-input-23-8f56ebfffe01&gt;:3: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  labevents_icu[&#39;CHARTTIME&#39;] = pd.to_datetime(labevents_icu[&#39;CHARTTIME&#39;])
+/opt/anaconda3/lib/python3.8/site-packages/pandas/util/_decorators.py:311: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  return func(*args, **kwargs)
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For every patient and every item, obtain the first testing value during his first entry into ICU.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
+
+<span class="n">itemid_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">require_index</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">labevents_icu</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;CHARTTIME&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">time_dict</span><span class="p">[</span><span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]][</span><span class="s1">&#39;INTIME&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;CHARTTIME&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">time_dict</span><span class="p">[</span><span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]][</span><span class="s1">&#39;OUTTIME&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">itemid_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">itemid_dict</span><span class="p">[</span><span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;ITEMID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">itemid_dict</span><span class="p">[</span><span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]:</span>
+            <span class="n">itemid_dict</span><span class="p">[</span><span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labevents_icu</span><span class="p">[</span><span class="s1">&#39;ITEMID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">require_index</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CPU times: user 13min 9s, sys: 4.19 s, total: 13min 13s
+Wall time: 13min 17s
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Select required rows</span>
+
+<span class="n">labevents_unique</span> <span class="o">=</span> <span class="n">labevents_icu</span><span class="p">[[(</span><span class="n">index</span> <span class="ow">in</span> <span class="n">require_index</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">labevents_icu</span><span class="o">.</span><span class="n">index</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Obtain the HADM_ID dict, in labevents_unqiue, for each patient, the HADM_ID should be unique</span>
+
+<span class="n">HADM_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">labevents_unique</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">labevents_unique</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">HADM_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">HADM_dict</span><span class="p">[</span><span class="n">labevents_unique</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">labevents_unique</span><span class="p">[</span><span class="s1">&#39;HADM_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[60]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">labevents_unique</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[60]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ROW_ID</th>
+      <th>SUBJECT_ID</th>
+      <th>HADM_ID</th>
+      <th>ITEMID</th>
+      <th>CHARTTIME</th>
+      <th>VALUE</th>
+      <th>VALUENUM</th>
+      <th>VALUEUOM</th>
+      <th>FLAG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>25582306</th>
+      <td>25692457</td>
+      <td>82574</td>
+      <td>118464.0</td>
+      <td>50868</td>
+      <td>2100-06-07 23:34:00</td>
+      <td>13</td>
+      <td>13.00</td>
+      <td>mEq/L</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>25582304</th>
+      <td>25692455</td>
+      <td>82574</td>
+      <td>118464.0</td>
+      <td>50862</td>
+      <td>2100-06-07 23:34:00</td>
+      <td>3.2</td>
+      <td>3.20</td>
+      <td>g/dL</td>
+      <td>abnormal</td>
+    </tr>
+    <tr>
+      <th>25582305</th>
+      <td>25692456</td>
+      <td>82574</td>
+      <td>118464.0</td>
+      <td>50863</td>
+      <td>2100-06-07 23:34:00</td>
+      <td>75</td>
+      <td>75.00</td>
+      <td>IU/L</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>25912798</th>
+      <td>25692483</td>
+      <td>82574</td>
+      <td>118464.0</td>
+      <td>51301</td>
+      <td>2100-06-07 23:34:00</td>
+      <td>2.0</td>
+      <td>2.00</td>
+      <td>K/uL</td>
+      <td>abnormal</td>
+    </tr>
+    <tr>
+      <th>25582307</th>
+      <td>25692458</td>
+      <td>82574</td>
+      <td>118464.0</td>
+      <td>50878</td>
+      <td>2100-06-07 23:34:00</td>
+      <td>56</td>
+      <td>56.00</td>
+      <td>IU/L</td>
+      <td>abnormal</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>26709581</th>
+      <td>27638217</td>
+      <td>98185</td>
+      <td>116667.0</td>
+      <td>50813</td>
+      <td>2208-08-20 03:38:00</td>
+      <td>0.9</td>
+      <td>0.90</td>
+      <td>mmol/L</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26709580</th>
+      <td>27638216</td>
+      <td>98185</td>
+      <td>116667.0</td>
+      <td>50808</td>
+      <td>2208-08-20 03:38:00</td>
+      <td>1.05</td>
+      <td>1.05</td>
+      <td>mmol/L</td>
+      <td>abnormal</td>
+    </tr>
+    <tr>
+      <th>26709579</th>
+      <td>27638215</td>
+      <td>98185</td>
+      <td>116667.0</td>
+      <td>50804</td>
+      <td>2208-08-20 03:38:00</td>
+      <td>26</td>
+      <td>26.00</td>
+      <td>mEq/L</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26709578</th>
+      <td>27638214</td>
+      <td>98185</td>
+      <td>116667.0</td>
+      <td>50802</td>
+      <td>2208-08-20 03:38:00</td>
+      <td>0</td>
+      <td>0.00</td>
+      <td>mEq/L</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>26709583</th>
+      <td>27638219</td>
+      <td>98185</td>
+      <td>116667.0</td>
+      <td>50818</td>
+      <td>2208-08-20 03:38:00</td>
+      <td>40</td>
+      <td>40.00</td>
+      <td>mm Hg</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>2057833 rows × 9 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since the labevents are unique for each subject, we can use pd.pivot to convert the labevents_unique dataframe.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Convert labevents_unique</span>
+
+<span class="n">convert</span> <span class="o">=</span> <span class="n">labevents_unique</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;ITEMID&#39;</span><span class="p">,</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;VALUE&#39;</span><span class="p">)</span>
+<span class="n">convert</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[47]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ITEMID</th>
+      <th>50800</th>
+      <th>50801</th>
+      <th>50802</th>
+      <th>50803</th>
+      <th>50804</th>
+      <th>50805</th>
+      <th>50806</th>
+      <th>50808</th>
+      <th>50809</th>
+      <th>50810</th>
+      <th>...</th>
+      <th>51511</th>
+      <th>51512</th>
+      <th>51513</th>
+      <th>51514</th>
+      <th>51515</th>
+      <th>51516</th>
+      <th>51517</th>
+      <th>51518</th>
+      <th>51519</th>
+      <th>51523</th>
+    </tr>
+    <tr>
+      <th>SUBJECT_ID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>ART</td>
+      <td>403</td>
+      <td>-4</td>
+      <td>15</td>
+      <td>23</td>
+      <td>NaN</td>
+      <td>114</td>
+      <td>1.09</td>
+      <td>140</td>
+      <td>30</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>35</td>
+      <td>NaN</td>
+      <td>FEW</td>
+      <td>MANY</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NEG</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NONE</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>99985</th>
+      <td>ART</td>
+      <td>531</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>26</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>OCC</td>
+      <td>NaN</td>
+      <td>NEG</td>
+      <td>NaN</td>
+      <td>8</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NONE</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>99991</th>
+      <td>NaN</td>
+      <td>506</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>23</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>99992</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>99995</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>10</td>
+      <td>NaN</td>
+      <td>35</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1.13</td>
+      <td>128</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NONE</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>99999</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>43659 rows × 673 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since there are too many nan in convert, we want to keep the columns with missing values less than 20000, then delete the rows that has missing values in these columns.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">drop_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">convert</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">convert</span><span class="p">[</span><span class="n">column</span><span class="p">]))</span> <span class="o">&gt;</span> <span class="mi">20000</span><span class="p">:</span>
+        <span class="n">drop_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+<span class="n">convert_dropna</span> <span class="o">=</span> <span class="n">convert</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">drop_list</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;any&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">drop_list</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[44]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>671</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">convert_dropna</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[50]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ITEMID</th>
+      <th>50802</th>
+      <th>50804</th>
+      <th>50818</th>
+      <th>50820</th>
+      <th>50821</th>
+      <th>50868</th>
+      <th>50882</th>
+      <th>50893</th>
+      <th>50902</th>
+      <th>50912</th>
+      <th>...</th>
+      <th>51237</th>
+      <th>51248</th>
+      <th>51249</th>
+      <th>51250</th>
+      <th>51265</th>
+      <th>51274</th>
+      <th>51275</th>
+      <th>51277</th>
+      <th>51279</th>
+      <th>51301</th>
+    </tr>
+    <tr>
+      <th>SUBJECT_ID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>-4</td>
+      <td>23</td>
+      <td>40</td>
+      <td>7.35</td>
+      <td>20</td>
+      <td>23</td>
+      <td>13</td>
+      <td>5.8</td>
+      <td>111</td>
+      <td>2.4</td>
+      <td>...</td>
+      <td>1.7</td>
+      <td>28.9</td>
+      <td>31.3</td>
+      <td>92</td>
+      <td>190</td>
+      <td>15.7</td>
+      <td>58.3</td>
+      <td>15.0</td>
+      <td>2.70</td>
+      <td>11.3</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>29</td>
+      <td>46</td>
+      <td>7.39</td>
+      <td>75</td>
+      <td>13</td>
+      <td>26</td>
+      <td>9.2</td>
+      <td>100</td>
+      <td>1.4</td>
+      <td>...</td>
+      <td>1.2</td>
+      <td>28.7</td>
+      <td>34.5</td>
+      <td>83</td>
+      <td>249</td>
+      <td>13.5</td>
+      <td>21.9</td>
+      <td>13.8</td>
+      <td>4.50</td>
+      <td>13.7</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>-21</td>
+      <td>10</td>
+      <td>36</td>
+      <td>7.02</td>
+      <td>276</td>
+      <td>28</td>
+      <td>11</td>
+      <td>8.3</td>
+      <td>111</td>
+      <td>1.3</td>
+      <td>...</td>
+      <td>1.8</td>
+      <td>30.1</td>
+      <td>33.7</td>
+      <td>90</td>
+      <td>87</td>
+      <td>16.8</td>
+      <td>60.9</td>
+      <td>14.2</td>
+      <td>4.40</td>
+      <td>8.4</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0</td>
+      <td>26</td>
+      <td>43</td>
+      <td>7.38</td>
+      <td>369</td>
+      <td>14</td>
+      <td>23</td>
+      <td>8.9</td>
+      <td>106</td>
+      <td>0.6</td>
+      <td>...</td>
+      <td>1.2</td>
+      <td>30.2</td>
+      <td>34.6</td>
+      <td>87</td>
+      <td>216</td>
+      <td>13.7</td>
+      <td>44.1</td>
+      <td>13.4</td>
+      <td>4.08</td>
+      <td>16.6</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>-7</td>
+      <td>34</td>
+      <td>167</td>
+      <td>6.88</td>
+      <td>320</td>
+      <td>12</td>
+      <td>23</td>
+      <td>7.9</td>
+      <td>112</td>
+      <td>0.8</td>
+      <td>...</td>
+      <td>1.5</td>
+      <td>30.8</td>
+      <td>35.2</td>
+      <td>88</td>
+      <td>138</td>
+      <td>14.9</td>
+      <td>31.8</td>
+      <td>12.6</td>
+      <td>3.42</td>
+      <td>10.5</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>99946</th>
+      <td>4</td>
+      <td>30</td>
+      <td>42</td>
+      <td>7.45</td>
+      <td>94</td>
+      <td>15</td>
+      <td>26</td>
+      <td>9.1</td>
+      <td>105</td>
+      <td>0.8</td>
+      <td>...</td>
+      <td>3.0</td>
+      <td>30.2</td>
+      <td>33.8</td>
+      <td>89</td>
+      <td>231</td>
+      <td>30.9</td>
+      <td>39.0</td>
+      <td>13.8</td>
+      <td>5.63</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <th>99982</th>
+      <td>8</td>
+      <td>33</td>
+      <td>40</td>
+      <td>7.51</td>
+      <td>100</td>
+      <td>13</td>
+      <td>30</td>
+      <td>8.8</td>
+      <td>98</td>
+      <td>1.5</td>
+      <td>...</td>
+      <td>1.3</td>
+      <td>33.0</td>
+      <td>33.8</td>
+      <td>98</td>
+      <td>113</td>
+      <td>14.7</td>
+      <td>31.4</td>
+      <td>15.2</td>
+      <td>3.18</td>
+      <td>3.8</td>
+    </tr>
+    <tr>
+      <th>99985</th>
+      <td>0</td>
+      <td>26</td>
+      <td>39</td>
+      <td>7.41</td>
+      <td>39</td>
+      <td>12</td>
+      <td>24</td>
+      <td>7.2</td>
+      <td>104</td>
+      <td>0.9</td>
+      <td>...</td>
+      <td>1.1</td>
+      <td>29.5</td>
+      <td>32.9</td>
+      <td>90</td>
+      <td>250</td>
+      <td>12.5</td>
+      <td>47.7</td>
+      <td>14.2</td>
+      <td>3.18</td>
+      <td>12.6</td>
+    </tr>
+    <tr>
+      <th>99991</th>
+      <td>0</td>
+      <td>23</td>
+      <td>35</td>
+      <td>7.42</td>
+      <td>131</td>
+      <td>12</td>
+      <td>22</td>
+      <td>7.0</td>
+      <td>113</td>
+      <td>1.2</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>29.3</td>
+      <td>34.5</td>
+      <td>85</td>
+      <td>188</td>
+      <td>12.1</td>
+      <td>27.8</td>
+      <td>13.4</td>
+      <td>3.08</td>
+      <td>4.2</td>
+    </tr>
+    <tr>
+      <th>99995</th>
+      <td>10</td>
+      <td>35</td>
+      <td>46</td>
+      <td>7.48</td>
+      <td>178</td>
+      <td>8</td>
+      <td>34</td>
+      <td>8.5</td>
+      <td>100</td>
+      <td>0.4</td>
+      <td>...</td>
+      <td>1.4</td>
+      <td>30.5</td>
+      <td>32.9</td>
+      <td>93</td>
+      <td>189</td>
+      <td>15.4</td>
+      <td>27.9</td>
+      <td>18.1</td>
+      <td>2.86</td>
+      <td>8.2</td>
+    </tr>
+  </tbody>
+</table>
+<p>18142 rows × 28 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Some of the value cannot be transfered to float, therefore, we want to delete the rows with these string values.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[51]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">isfloat</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    
+<span class="n">drop_index</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">convert_dropna</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">convert_dropna</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">isfloat</span><span class="p">(</span><span class="n">convert_dropna</span><span class="p">[</span><span class="n">column</span><span class="p">][</span><span class="n">i</span><span class="p">]):</span>
+            <span class="n">drop_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            
+<span class="n">convert_float</span> <span class="o">=</span> <span class="n">convert_dropna</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">drop_index</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">convert_float</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[53]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ITEMID</th>
+      <th>50802</th>
+      <th>50804</th>
+      <th>50818</th>
+      <th>50820</th>
+      <th>50821</th>
+      <th>50868</th>
+      <th>50882</th>
+      <th>50893</th>
+      <th>50902</th>
+      <th>50912</th>
+      <th>...</th>
+      <th>51237</th>
+      <th>51248</th>
+      <th>51249</th>
+      <th>51250</th>
+      <th>51265</th>
+      <th>51274</th>
+      <th>51275</th>
+      <th>51277</th>
+      <th>51279</th>
+      <th>51301</th>
+    </tr>
+    <tr>
+      <th>SUBJECT_ID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>-4</td>
+      <td>23</td>
+      <td>40</td>
+      <td>7.35</td>
+      <td>20</td>
+      <td>23</td>
+      <td>13</td>
+      <td>5.8</td>
+      <td>111</td>
+      <td>2.4</td>
+      <td>...</td>
+      <td>1.7</td>
+      <td>28.9</td>
+      <td>31.3</td>
+      <td>92</td>
+      <td>190</td>
+      <td>15.7</td>
+      <td>58.3</td>
+      <td>15.0</td>
+      <td>2.70</td>
+      <td>11.3</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>29</td>
+      <td>46</td>
+      <td>7.39</td>
+      <td>75</td>
+      <td>13</td>
+      <td>26</td>
+      <td>9.2</td>
+      <td>100</td>
+      <td>1.4</td>
+      <td>...</td>
+      <td>1.2</td>
+      <td>28.7</td>
+      <td>34.5</td>
+      <td>83</td>
+      <td>249</td>
+      <td>13.5</td>
+      <td>21.9</td>
+      <td>13.8</td>
+      <td>4.50</td>
+      <td>13.7</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>-21</td>
+      <td>10</td>
+      <td>36</td>
+      <td>7.02</td>
+      <td>276</td>
+      <td>28</td>
+      <td>11</td>
+      <td>8.3</td>
+      <td>111</td>
+      <td>1.3</td>
+      <td>...</td>
+      <td>1.8</td>
+      <td>30.1</td>
+      <td>33.7</td>
+      <td>90</td>
+      <td>87</td>
+      <td>16.8</td>
+      <td>60.9</td>
+      <td>14.2</td>
+      <td>4.40</td>
+      <td>8.4</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0</td>
+      <td>26</td>
+      <td>43</td>
+      <td>7.38</td>
+      <td>369</td>
+      <td>14</td>
+      <td>23</td>
+      <td>8.9</td>
+      <td>106</td>
+      <td>0.6</td>
+      <td>...</td>
+      <td>1.2</td>
+      <td>30.2</td>
+      <td>34.6</td>
+      <td>87</td>
+      <td>216</td>
+      <td>13.7</td>
+      <td>44.1</td>
+      <td>13.4</td>
+      <td>4.08</td>
+      <td>16.6</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>-7</td>
+      <td>34</td>
+      <td>167</td>
+      <td>6.88</td>
+      <td>320</td>
+      <td>12</td>
+      <td>23</td>
+      <td>7.9</td>
+      <td>112</td>
+      <td>0.8</td>
+      <td>...</td>
+      <td>1.5</td>
+      <td>30.8</td>
+      <td>35.2</td>
+      <td>88</td>
+      <td>138</td>
+      <td>14.9</td>
+      <td>31.8</td>
+      <td>12.6</td>
+      <td>3.42</td>
+      <td>10.5</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>99946</th>
+      <td>4</td>
+      <td>30</td>
+      <td>42</td>
+      <td>7.45</td>
+      <td>94</td>
+      <td>15</td>
+      <td>26</td>
+      <td>9.1</td>
+      <td>105</td>
+      <td>0.8</td>
+      <td>...</td>
+      <td>3.0</td>
+      <td>30.2</td>
+      <td>33.8</td>
+      <td>89</td>
+      <td>231</td>
+      <td>30.9</td>
+      <td>39.0</td>
+      <td>13.8</td>
+      <td>5.63</td>
+      <td>15.4</td>
+    </tr>
+    <tr>
+      <th>99982</th>
+      <td>8</td>
+      <td>33</td>
+      <td>40</td>
+      <td>7.51</td>
+      <td>100</td>
+      <td>13</td>
+      <td>30</td>
+      <td>8.8</td>
+      <td>98</td>
+      <td>1.5</td>
+      <td>...</td>
+      <td>1.3</td>
+      <td>33.0</td>
+      <td>33.8</td>
+      <td>98</td>
+      <td>113</td>
+      <td>14.7</td>
+      <td>31.4</td>
+      <td>15.2</td>
+      <td>3.18</td>
+      <td>3.8</td>
+    </tr>
+    <tr>
+      <th>99985</th>
+      <td>0</td>
+      <td>26</td>
+      <td>39</td>
+      <td>7.41</td>
+      <td>39</td>
+      <td>12</td>
+      <td>24</td>
+      <td>7.2</td>
+      <td>104</td>
+      <td>0.9</td>
+      <td>...</td>
+      <td>1.1</td>
+      <td>29.5</td>
+      <td>32.9</td>
+      <td>90</td>
+      <td>250</td>
+      <td>12.5</td>
+      <td>47.7</td>
+      <td>14.2</td>
+      <td>3.18</td>
+      <td>12.6</td>
+    </tr>
+    <tr>
+      <th>99991</th>
+      <td>0</td>
+      <td>23</td>
+      <td>35</td>
+      <td>7.42</td>
+      <td>131</td>
+      <td>12</td>
+      <td>22</td>
+      <td>7.0</td>
+      <td>113</td>
+      <td>1.2</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>29.3</td>
+      <td>34.5</td>
+      <td>85</td>
+      <td>188</td>
+      <td>12.1</td>
+      <td>27.8</td>
+      <td>13.4</td>
+      <td>3.08</td>
+      <td>4.2</td>
+    </tr>
+    <tr>
+      <th>99995</th>
+      <td>10</td>
+      <td>35</td>
+      <td>46</td>
+      <td>7.48</td>
+      <td>178</td>
+      <td>8</td>
+      <td>34</td>
+      <td>8.5</td>
+      <td>100</td>
+      <td>0.4</td>
+      <td>...</td>
+      <td>1.4</td>
+      <td>30.5</td>
+      <td>32.9</td>
+      <td>93</td>
+      <td>189</td>
+      <td>15.4</td>
+      <td>27.9</td>
+      <td>18.1</td>
+      <td>2.86</td>
+      <td>8.2</td>
+    </tr>
+  </tbody>
+</table>
+<p>18033 rows × 28 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Admissions-processing">Admissions processing<a class="anchor-link" href="#Admissions-processing">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We want to obtain the target variable and Admittime from admissions datasets.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[139]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">admissions</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[139]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ROW_ID</th>
+      <th>SUBJECT_ID</th>
+      <th>HADM_ID</th>
+      <th>ADMITTIME</th>
+      <th>DISCHTIME</th>
+      <th>DEATHTIME</th>
+      <th>ADMISSION_TYPE</th>
+      <th>ADMISSION_LOCATION</th>
+      <th>DISCHARGE_LOCATION</th>
+      <th>INSURANCE</th>
+      <th>LANGUAGE</th>
+      <th>RELIGION</th>
+      <th>MARITAL_STATUS</th>
+      <th>ETHNICITY</th>
+      <th>EDREGTIME</th>
+      <th>EDOUTTIME</th>
+      <th>DIAGNOSIS</th>
+      <th>HOSPITAL_EXPIRE_FLAG</th>
+      <th>HAS_CHARTEVENTS_DATA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>21</td>
+      <td>22</td>
+      <td>165315</td>
+      <td>2196-04-09 12:26:00</td>
+      <td>2196-04-10 15:54:00</td>
+      <td>NaN</td>
+      <td>EMERGENCY</td>
+      <td>EMERGENCY ROOM ADMIT</td>
+      <td>DISC-TRAN CANCER/CHLDRN H</td>
+      <td>Private</td>
+      <td>NaN</td>
+      <td>UNOBTAINABLE</td>
+      <td>MARRIED</td>
+      <td>WHITE</td>
+      <td>2196-04-09 10:06:00</td>
+      <td>2196-04-09 13:24:00</td>
+      <td>BENZODIAZEPINE OVERDOSE</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>22</td>
+      <td>23</td>
+      <td>152223</td>
+      <td>2153-09-03 07:15:00</td>
+      <td>2153-09-08 19:10:00</td>
+      <td>NaN</td>
+      <td>ELECTIVE</td>
+      <td>PHYS REFERRAL/NORMAL DELI</td>
+      <td>HOME HEALTH CARE</td>
+      <td>Medicare</td>
+      <td>NaN</td>
+      <td>CATHOLIC</td>
+      <td>MARRIED</td>
+      <td>WHITE</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>CORONARY ARTERY DISEASE\CORONARY ARTERY BYPASS...</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>23</td>
+      <td>23</td>
+      <td>124321</td>
+      <td>2157-10-18 19:34:00</td>
+      <td>2157-10-25 14:00:00</td>
+      <td>NaN</td>
+      <td>EMERGENCY</td>
+      <td>TRANSFER FROM HOSP/EXTRAM</td>
+      <td>HOME HEALTH CARE</td>
+      <td>Medicare</td>
+      <td>ENGL</td>
+      <td>CATHOLIC</td>
+      <td>MARRIED</td>
+      <td>WHITE</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BRAIN MASS</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>24</td>
+      <td>24</td>
+      <td>161859</td>
+      <td>2139-06-06 16:14:00</td>
+      <td>2139-06-09 12:48:00</td>
+      <td>NaN</td>
+      <td>EMERGENCY</td>
+      <td>TRANSFER FROM HOSP/EXTRAM</td>
+      <td>HOME</td>
+      <td>Private</td>
+      <td>NaN</td>
+      <td>PROTESTANT QUAKER</td>
+      <td>SINGLE</td>
+      <td>WHITE</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>INTERIOR MYOCARDIAL INFARCTION</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>25</td>
+      <td>25</td>
+      <td>129635</td>
+      <td>2160-11-02 02:06:00</td>
+      <td>2160-11-05 14:55:00</td>
+      <td>NaN</td>
+      <td>EMERGENCY</td>
+      <td>EMERGENCY ROOM ADMIT</td>
+      <td>HOME</td>
+      <td>Private</td>
+      <td>NaN</td>
+      <td>UNOBTAINABLE</td>
+      <td>MARRIED</td>
+      <td>WHITE</td>
+      <td>2160-11-02 01:01:00</td>
+      <td>2160-11-02 04:27:00</td>
+      <td>ACUTE CORONARY SYNDROME</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[151]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Obtain the HADM_ID, flag, admittime for each patient</span>
+
+<span class="n">admissions</span><span class="p">[</span><span class="s1">&#39;ADMITTIME&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">admissions</span><span class="p">[</span><span class="s1">&#39;ADMITTIME&#39;</span><span class="p">])</span>
+<span class="n">admissions</span> <span class="o">=</span> <span class="n">admissions</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;ADMITTIME&#39;</span><span class="p">)</span>
+<span class="n">HADM_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">admittime</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">flag_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">admissions</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">admissions</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">HADM_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">HADM_dict</span><span class="p">[</span><span class="n">admissions</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">admissions</span><span class="p">[</span><span class="s1">&#39;HADM_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">admittime</span><span class="p">[</span><span class="n">admissions</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">admissions</span><span class="p">[</span><span class="s1">&#39;ADMITTIME&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">flag_dict</span><span class="p">[</span><span class="n">admissions</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">admissions</span><span class="p">[</span><span class="s1">&#39;HOSPITAL_EXPIRE_FLAG&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Patients-processing">Patients processing<a class="anchor-link" href="#Patients-processing">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This dataset includes patients information, we want to get the date of birthday and gender for each patient.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[144]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">patients</span><span class="p">[</span><span class="s1">&#39;GENDER&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">patients</span><span class="p">[</span><span class="s1">&#39;GENDER&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;F&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;M&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span>
+<span class="n">patients</span><span class="p">[</span><span class="s1">&#39;DOB&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">patients</span><span class="p">[</span><span class="s1">&#39;DOB&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[145]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Obtain the gender_dict and age_dict</span>
+
+<span class="n">gender_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">age_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">patients</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="n">gender_dict</span><span class="p">[</span><span class="n">patients</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">patients</span><span class="p">[</span><span class="s1">&#39;GENDER&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">age_dict</span><span class="p">[</span><span class="n">patients</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">admittime</span><span class="p">[</span><span class="n">patients</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">patients</span><span class="p">[</span><span class="s1">&#39;DOB&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">year</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Combine">Combine<a class="anchor-link" href="#Combine">&#182;</a></h3><p>Based on subject_id, combine the variable we get.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[157]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Based on the HADM_dict obtained from admissions, obtain icu_los from icustays dataframe</span>
+<span class="c1"># One hospitalization may enter the ICU multiple times, and the length needs to be accumulated</span>
+
+<span class="n">icu_los</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">icustays</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;HADM_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">HADM_dict</span><span class="p">[</span><span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">icu_los</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">icu_los</span><span class="p">[</span><span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">icu_los</span><span class="p">[</span><span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;SUBJECT_ID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">icustays</span><span class="p">[</span><span class="s1">&#39;LOS&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[187]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">combine</span> <span class="o">=</span> <span class="n">convert_float</span><span class="p">[[(</span><span class="n">index</span> <span class="ow">in</span> <span class="n">icu_los</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">convert_float</span><span class="o">.</span><span class="n">index</span><span class="p">]]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[188]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">combine</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+<span class="n">combine</span><span class="p">[</span><span class="s1">&#39;gender&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">combine</span><span class="p">[</span><span class="s1">&#39;icu_los&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span>
+<span class="n">combine</span><span class="p">[</span><span class="s1">&#39;flag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">combine</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="n">combine</span><span class="o">.</span><span class="n">age</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">age_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">combine</span><span class="o">.</span><span class="n">gender</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">gender_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">combine</span><span class="o">.</span><span class="n">icu_los</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">time_dict</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;icu_los&#39;</span><span class="p">]</span>
+    <span class="n">combine</span><span class="o">.</span><span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">flag_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>&lt;ipython-input-188-f7a2a4fa7d25&gt;:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  combine[&#39;age&#39;] = -1.0
+&lt;ipython-input-188-f7a2a4fa7d25&gt;:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  combine[&#39;gender&#39;] = -1
+&lt;ipython-input-188-f7a2a4fa7d25&gt;:3: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  combine[&#39;icu_los&#39;] = -1.0
+&lt;ipython-input-188-f7a2a4fa7d25&gt;:4: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  combine[&#39;flag&#39;] = -1
+&lt;ipython-input-188-f7a2a4fa7d25&gt;:7: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  combine.age[i] = age_dict[i]
+&lt;ipython-input-188-f7a2a4fa7d25&gt;:8: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  combine.gender[i] = gender_dict[i]
+&lt;ipython-input-188-f7a2a4fa7d25&gt;:9: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  combine.icu_los[i] = time_dict[i][&#39;icu_los&#39;]
+&lt;ipython-input-188-f7a2a4fa7d25&gt;:10: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  combine.flag[i] = flag_dict[i]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[189]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">combine</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[189]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ITEMID</th>
+      <th>50802</th>
+      <th>50804</th>
+      <th>50818</th>
+      <th>50820</th>
+      <th>50821</th>
+      <th>50868</th>
+      <th>50882</th>
+      <th>50893</th>
+      <th>50902</th>
+      <th>50912</th>
+      <th>...</th>
+      <th>51265</th>
+      <th>51274</th>
+      <th>51275</th>
+      <th>51277</th>
+      <th>51279</th>
+      <th>51301</th>
+      <th>age</th>
+      <th>gender</th>
+      <th>icu_los</th>
+      <th>flag</th>
+    </tr>
+    <tr>
+      <th>SUBJECT_ID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>-4</td>
+      <td>23</td>
+      <td>40</td>
+      <td>7.35</td>
+      <td>20</td>
+      <td>23</td>
+      <td>13</td>
+      <td>5.8</td>
+      <td>111</td>
+      <td>2.4</td>
+      <td>...</td>
+      <td>190</td>
+      <td>15.7</td>
+      <td>58.3</td>
+      <td>15.0</td>
+      <td>2.70</td>
+      <td>11.3</td>
+      <td>76.0</td>
+      <td>1</td>
+      <td>6.0646</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>29</td>
+      <td>46</td>
+      <td>7.39</td>
+      <td>75</td>
+      <td>13</td>
+      <td>26</td>
+      <td>9.2</td>
+      <td>100</td>
+      <td>1.4</td>
+      <td>...</td>
+      <td>249</td>
+      <td>13.5</td>
+      <td>21.9</td>
+      <td>13.8</td>
+      <td>4.50</td>
+      <td>13.7</td>
+      <td>41.0</td>
+      <td>1</td>
+      <td>5.3231</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>-21</td>
+      <td>10</td>
+      <td>36</td>
+      <td>7.02</td>
+      <td>276</td>
+      <td>28</td>
+      <td>11</td>
+      <td>8.3</td>
+      <td>111</td>
+      <td>1.3</td>
+      <td>...</td>
+      <td>87</td>
+      <td>16.8</td>
+      <td>60.9</td>
+      <td>14.2</td>
+      <td>4.40</td>
+      <td>8.4</td>
+      <td>72.0</td>
+      <td>1</td>
+      <td>7.6348</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0</td>
+      <td>26</td>
+      <td>43</td>
+      <td>7.38</td>
+      <td>369</td>
+      <td>14</td>
+      <td>23</td>
+      <td>8.9</td>
+      <td>106</td>
+      <td>0.6</td>
+      <td>...</td>
+      <td>216</td>
+      <td>13.7</td>
+      <td>44.1</td>
+      <td>13.4</td>
+      <td>4.08</td>
+      <td>16.6</td>
+      <td>40.0</td>
+      <td>0</td>
+      <td>3.6660</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>-7</td>
+      <td>34</td>
+      <td>167</td>
+      <td>6.88</td>
+      <td>320</td>
+      <td>12</td>
+      <td>23</td>
+      <td>7.9</td>
+      <td>112</td>
+      <td>0.8</td>
+      <td>...</td>
+      <td>138</td>
+      <td>14.9</td>
+      <td>31.8</td>
+      <td>12.6</td>
+      <td>3.42</td>
+      <td>10.5</td>
+      <td>47.0</td>
+      <td>0</td>
+      <td>2.0710</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>99946</th>
+      <td>4</td>
+      <td>30</td>
+      <td>42</td>
+      <td>7.45</td>
+      <td>94</td>
+      <td>15</td>
+      <td>26</td>
+      <td>9.1</td>
+      <td>105</td>
+      <td>0.8</td>
+      <td>...</td>
+      <td>231</td>
+      <td>30.9</td>
+      <td>39.0</td>
+      <td>13.8</td>
+      <td>5.63</td>
+      <td>15.4</td>
+      <td>50.0</td>
+      <td>1</td>
+      <td>0.7992</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>99982</th>
+      <td>8</td>
+      <td>33</td>
+      <td>40</td>
+      <td>7.51</td>
+      <td>100</td>
+      <td>13</td>
+      <td>30</td>
+      <td>8.8</td>
+      <td>98</td>
+      <td>1.5</td>
+      <td>...</td>
+      <td>113</td>
+      <td>14.7</td>
+      <td>31.4</td>
+      <td>15.2</td>
+      <td>3.18</td>
+      <td>3.8</td>
+      <td>65.0</td>
+      <td>1</td>
+      <td>7.9493</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>99985</th>
+      <td>0</td>
+      <td>26</td>
+      <td>39</td>
+      <td>7.41</td>
+      <td>39</td>
+      <td>12</td>
+      <td>24</td>
+      <td>7.2</td>
+      <td>104</td>
+      <td>0.9</td>
+      <td>...</td>
+      <td>250</td>
+      <td>12.5</td>
+      <td>47.7</td>
+      <td>14.2</td>
+      <td>3.18</td>
+      <td>12.6</td>
+      <td>54.0</td>
+      <td>1</td>
+      <td>11.2998</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>99991</th>
+      <td>0</td>
+      <td>23</td>
+      <td>35</td>
+      <td>7.42</td>
+      <td>131</td>
+      <td>12</td>
+      <td>22</td>
+      <td>7.0</td>
+      <td>113</td>
+      <td>1.2</td>
+      <td>...</td>
+      <td>188</td>
+      <td>12.1</td>
+      <td>27.8</td>
+      <td>13.4</td>
+      <td>3.08</td>
+      <td>4.2</td>
+      <td>47.0</td>
+      <td>1</td>
+      <td>3.1426</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>99995</th>
+      <td>10</td>
+      <td>35</td>
+      <td>46</td>
+      <td>7.48</td>
+      <td>178</td>
+      <td>8</td>
+      <td>34</td>
+      <td>8.5</td>
+      <td>100</td>
+      <td>0.4</td>
+      <td>...</td>
+      <td>189</td>
+      <td>15.4</td>
+      <td>27.9</td>
+      <td>18.1</td>
+      <td>2.86</td>
+      <td>8.2</td>
+      <td>89.0</td>
+      <td>0</td>
+      <td>2.1615</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>17809 rows × 32 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Variables-selection">Variables selection<a class="anchor-link" href="#Variables-selection">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are too many variables, we want to choose 10 variables for the next part of data analysis. Therefore, we use a simple logistic regression to select variables.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[190]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Map the data to the range of 0-1</span>
+
+<span class="n">combine_nor</span> <span class="o">=</span> <span class="n">combine</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">combine_nor</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">))</span>
+    <span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[191]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Logistic regression</span>
+
+<span class="n">x_column</span> <span class="o">=</span> <span class="n">combine_nor</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">combine_nor</span><span class="p">[</span><span class="n">x_column</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">combine_nor</span><span class="p">[</span><span class="s1">&#39;flag&#39;</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">class_weight</span> <span class="o">=</span> <span class="s1">&#39;balanced&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/opt/anaconda3/lib/python3.8/site-packages/sklearn/linear_model/_logistic.py:762: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[191]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.6987647389107243</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[192]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The importance of variables</span>
+
+<span class="n">clf</span><span class="o">.</span><span class="n">coef_</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[192]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[-2.1758029 , -2.73706951,  1.55998412,  0.54184627, -0.3229467 ,
+         3.59556658, -0.37894219, -1.12112914, -4.30788353, -4.252456  ,
+         1.81547318, -1.923065  , -0.50033385, -2.18868785,  3.00685438,
+         2.89995361, -0.29202966,  0.66445185,  1.32347575,  1.32839141,
+        -2.36666072,  1.98036039, -0.87288612,  1.21127145,  0.69200924,
+         4.90876271,  0.67380674,  2.69264174,  1.2553999 , -0.0210873 ,
+         1.73804051]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[193]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x_column</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[193]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([    50802,     50804,     50818,     50820,     50821,     50868,
+           50882,     50893,     50902,     50912,     50931,     50960,
+           50970,     50971,     50983,     51006,     51221,     51222,
+           51237,     51248,     51249,     51250,     51265,     51274,
+           51275,     51277,     51279,     51301,     &#39;age&#39;,  &#39;gender&#39;,
+       &#39;icu_los&#39;],
+      dtype=&#39;object&#39;, name=&#39;ITEMID&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[194]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Drop the variables with low importance</span>
+
+<span class="n">drop_cols</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50820</span><span class="p">,</span> <span class="mi">50821</span><span class="p">,</span> <span class="mi">50882</span><span class="p">,</span> <span class="mi">50970</span><span class="p">,</span> <span class="mi">51221</span><span class="p">,</span> <span class="mi">51222</span><span class="p">,</span> 
+             <span class="mi">51265</span><span class="p">,</span> <span class="mi">51275</span><span class="p">,</span> <span class="mi">51279</span><span class="p">,</span> <span class="mi">50818</span><span class="p">,</span> <span class="mi">50893</span><span class="p">,</span> <span class="mi">50804</span><span class="p">,</span>
+             <span class="mi">51274</span><span class="p">,</span> <span class="mi">51250</span><span class="p">,</span> <span class="mi">51249</span><span class="p">,</span> <span class="mi">51248</span><span class="p">,</span> <span class="mi">51237</span><span class="p">,</span> <span class="mi">50931</span><span class="p">,</span> 
+             <span class="mi">50960</span><span class="p">,</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span><span class="s1">&#39;age&#39;</span><span class="p">]</span>
+
+<span class="n">combine_new</span> <span class="o">=</span> <span class="n">combine</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">drop_cols</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[195]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Map the data to the range of 0-1</span>
+
+<span class="n">combine_nor</span> <span class="o">=</span> <span class="n">combine_new</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">combine_nor</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">))</span>
+    <span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">combine_nor</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[196]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Repeat the logistic regression</span>
+
+<span class="n">x_column</span> <span class="o">=</span> <span class="n">combine_nor</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">combine_nor</span><span class="p">[</span><span class="n">x_column</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">combine_nor</span><span class="p">[</span><span class="s1">&#39;flag&#39;</span><span class="p">]</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">class_weight</span> <span class="o">=</span> <span class="s1">&#39;balanced&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span><span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[196]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.7063447501403706</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[197]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">clf</span><span class="o">.</span><span class="n">coef_</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[197]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[-4.95377852,  4.10662256, -3.96803642, -4.65643424, -2.22710977,
+         3.08866454,  3.54293   ,  5.54482311,  2.77263174,  1.53964616]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can see that these ten variables have high importance. Therefore, we choose these ten variables for the next part of data analysis.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Convert-itemid-and-save-dataframe">Convert itemid and save dataframe<a class="anchor-link" href="#Convert-itemid-and-save-dataframe">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[202]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Transfer item id to item name</span>
+
+<span class="n">itemid_dict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d_labitems</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">d_labitems</span><span class="p">[</span><span class="s1">&#39;ITEMID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="n">combine_new</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">itemid_dict</span><span class="p">[</span><span class="n">d_labitems</span><span class="p">[</span><span class="s1">&#39;ITEMID&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">d_labitems</span><span class="p">[</span><span class="s1">&#39;LABEL&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+        
+<span class="n">final_dataset</span> <span class="o">=</span> <span class="n">combine_new</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">itemid_dict</span><span class="p">)</span>
+<span class="n">final_dataset</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[202]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ITEMID</th>
+      <th>Base Excess</th>
+      <th>Anion Gap</th>
+      <th>Chloride</th>
+      <th>Creatinine</th>
+      <th>Potassium</th>
+      <th>Sodium</th>
+      <th>Urea Nitrogen</th>
+      <th>RDW</th>
+      <th>White Blood Cells</th>
+      <th>icu_los</th>
+      <th>flag</th>
+    </tr>
+    <tr>
+      <th>SUBJECT_ID</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>-4</td>
+      <td>23</td>
+      <td>111</td>
+      <td>2.4</td>
+      <td>4.0</td>
+      <td>143</td>
+      <td>41</td>
+      <td>15.0</td>
+      <td>11.3</td>
+      <td>6.0646</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>1</td>
+      <td>13</td>
+      <td>100</td>
+      <td>1.4</td>
+      <td>3.0</td>
+      <td>136</td>
+      <td>17</td>
+      <td>13.8</td>
+      <td>13.7</td>
+      <td>5.3231</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>-21</td>
+      <td>28</td>
+      <td>111</td>
+      <td>1.3</td>
+      <td>4.6</td>
+      <td>145</td>
+      <td>28</td>
+      <td>14.2</td>
+      <td>8.4</td>
+      <td>7.6348</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>0</td>
+      <td>14</td>
+      <td>106</td>
+      <td>0.6</td>
+      <td>3.5</td>
+      <td>139</td>
+      <td>13</td>
+      <td>13.4</td>
+      <td>16.6</td>
+      <td>3.6660</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>-7</td>
+      <td>12</td>
+      <td>112</td>
+      <td>0.8</td>
+      <td>3.8</td>
+      <td>140</td>
+      <td>11</td>
+      <td>12.6</td>
+      <td>10.5</td>
+      <td>2.0710</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>99946</th>
+      <td>4</td>
+      <td>15</td>
+      <td>105</td>
+      <td>0.8</td>
+      <td>3.2</td>
+      <td>143</td>
+      <td>20</td>
+      <td>13.8</td>
+      <td>15.4</td>
+      <td>0.7992</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>99982</th>
+      <td>8</td>
+      <td>13</td>
+      <td>98</td>
+      <td>1.5</td>
+      <td>3.8</td>
+      <td>137</td>
+      <td>29</td>
+      <td>15.2</td>
+      <td>3.8</td>
+      <td>7.9493</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>99985</th>
+      <td>0</td>
+      <td>12</td>
+      <td>104</td>
+      <td>0.9</td>
+      <td>3.9</td>
+      <td>136</td>
+      <td>13</td>
+      <td>14.2</td>
+      <td>12.6</td>
+      <td>11.2998</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>99991</th>
+      <td>0</td>
+      <td>12</td>
+      <td>113</td>
+      <td>1.2</td>
+      <td>3.6</td>
+      <td>143</td>
+      <td>22</td>
+      <td>13.4</td>
+      <td>4.2</td>
+      <td>3.1426</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>99995</th>
+      <td>10</td>
+      <td>8</td>
+      <td>100</td>
+      <td>0.4</td>
+      <td>3.1</td>
+      <td>139</td>
+      <td>10</td>
+      <td>18.1</td>
+      <td>8.2</td>
+      <td>2.1615</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>17809 rows × 11 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[203]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Save to csv file</span>
+
+<span class="n">final_dataset</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;death_risk_predict.csv&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+ 
+
+</body>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        " linebreaks: { automatic: true, width: '95% container' }, " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="https://getpelican.com/">Pelican</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

@@ -2,18 +2,18 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Obliviate Final Project</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2021-11-24T00:00:00-05:00</updated><subtitle></subtitle><entry><title>Final Project Report</title><link href="/Final_Project_Report.html" rel="alternate"></link><published>2021-11-24T00:00:00-05:00</published><updated>2021-11-24T00:00:00-05:00</updated><author><name>Obliviate</name></author><id>tag:None,2021-11-24:/Final_Project_Report.html</id><summary type="html">&lt;h1&gt;Prediction of Patient's Risk of Death based on Lab Test after Entering ICU&lt;/h1&gt;
 &lt;p&gt;Team Name: Obliviate&lt;br&gt;
 Team Members: Ruqian Cheng, Mingxuan Wang, Ruiqi Zhang&lt;/p&gt;
-&lt;p&gt;Product Web: https://streamlit-app823.herokuapp.com/&lt;br&gt;
-Project Blog: https://obliviate823.github.io/&lt;br&gt;
-Github Repository: https://github.com/Obliviate823/823_FinalProject  &lt;/p&gt;
+&lt;p&gt;Product Web: &lt;a href="https://streamlit-app823.herokuapp.com/"&gt;https://streamlit-app823.herokuapp.com/&lt;/a&gt;    &lt;br&gt;
+Project Blog: &lt;a href="https://obliviate823.github.io/"&gt;https://obliviate823.github.io/&lt;/a&gt;    &lt;br&gt;
+Github Repository: &lt;a href="https://github.com/Obliviate823/823_FinalProject"&gt;https://github.com/Obliviate823/823_FinalProject&lt;/a&gt;      &lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;h2&gt;Team Part&lt;/h2&gt;
 &lt;h3&gt;1. Project Purpose&lt;/h3&gt;
 &lt;p&gt;The target …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Prediction of Patient's Risk of Death based on Lab Test after Entering ICU&lt;/h1&gt;
 &lt;p&gt;Team Name: Obliviate&lt;br&gt;
 Team Members: Ruqian Cheng, Mingxuan Wang, Ruiqi Zhang&lt;/p&gt;
-&lt;p&gt;Product Web: https://streamlit-app823.herokuapp.com/&lt;br&gt;
-Project Blog: https://obliviate823.github.io/&lt;br&gt;
-Github Repository: https://github.com/Obliviate823/823_FinalProject  &lt;/p&gt;
+&lt;p&gt;Product Web: &lt;a href="https://streamlit-app823.herokuapp.com/"&gt;https://streamlit-app823.herokuapp.com/&lt;/a&gt;    &lt;br&gt;
+Project Blog: &lt;a href="https://obliviate823.github.io/"&gt;https://obliviate823.github.io/&lt;/a&gt;    &lt;br&gt;
+Github Repository: &lt;a href="https://github.com/Obliviate823/823_FinalProject"&gt;https://github.com/Obliviate823/823_FinalProject&lt;/a&gt;      &lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
 &lt;h2&gt;Team Part&lt;/h2&gt;
 &lt;h3&gt;1. Project Purpose&lt;/h3&gt;
@@ -4954,10 +4954,10 @@ AUC on testing data: 0.7507546829480791
 
  
  
-&lt;div id="9bdbc3e5-ee1b-4d6a-b4f3-3dff587f7fcc"&gt;&lt;/div&gt;
+&lt;div id="996e1a55-1847-4705-91d0-de88b0ddac52"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_widget_view "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#9bdbc3e5-ee1b-4d6a-b4f3-3dff587f7fcc');
+var element = $('#996e1a55-1847-4705-91d0-de88b0ddac52');
 &lt;/script&gt;
 &lt;script type="application/vnd.jupyter.widget-view+json"&gt;
 {"model_id": "0c5f928bb5ea43d29444358d8bd46974", "version_major": 2, "version_minor": 0}
@@ -5530,7 +5530,7 @@ n===t._wrapperState.initialValue&amp;&amp;(e.value=n)}});t.exports=l},function(t
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</content><category term="Data Analysis Part One"></category></entry><entry><title>Data Processing</title><link href="/Data_Processing.html" rel="alternate"></link><published>2021-10-24T00:00:00-04:00</published><updated>2021-10-24T00:00:00-04:00</updated><author><name>Obliviate</name></author><id>tag:None,2021-10-24:/Data_Processing.html</id><summary type="html">&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+</content><category term="Data Analysis Part One"></category></entry><entry><title>Data Processing</title><link href="/Data_Processing.html" rel="alternate"></link><published>2021-10-23T00:00:00-04:00</published><updated>2021-10-23T00:00:00-04:00</updated><author><name>Obliviate</name></author><id>tag:None,2021-10-23:/Data_Processing.html</id><summary type="html">&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;h1 id="Data-Processing"&gt;Data Processing&lt;a class="anchor-link" href="#Data-Processing"&gt;&amp;#182;&lt;/a&gt;&lt;/h1&gt;

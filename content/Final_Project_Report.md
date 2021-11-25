@@ -11,9 +11,9 @@ Team Name: Obliviate
 Team Members: Ruqian Cheng, Mingxuan Wang, Ruiqi Zhang
 
 
-Product Web: https://streamlit-app823.herokuapp.com/  
-Project Blog: https://obliviate823.github.io/  
-Github Repository: https://github.com/Obliviate823/823_FinalProject  
+Product Web: [https://streamlit-app823.herokuapp.com/](https://streamlit-app823.herokuapp.com/)      
+Project Blog: [https://obliviate823.github.io/](https://obliviate823.github.io/)      
+Github Repository: [https://github.com/Obliviate823/823_FinalProject](https://github.com/Obliviate823/823_FinalProject)      
 
 <br/>
 

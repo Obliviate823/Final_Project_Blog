@@ -32,22 +32,19 @@
         </address>
 <p>In <a href="/category/final-project-report.html">Final Project Report</a>.</p>
 
-</footer><!-- /.post-info --><h1>Final Project - Prediction of Patient's Risk of Death based on Lab Test after Entering ICU</h1>
-<p><br/></p>
-<p>Team Name: Obliviate
+</footer><!-- /.post-info --><h1>Prediction of Patient's Risk of Death based on Lab Test after Entering ICU</h1>
+<p>Team Name: Obliviate<br>
 Team Members: Ruqian Cheng, Mingxuan Wang, Ruiqi Zhang</p>
-<p><br/></p>
-<p>Product Web: https://streamlit-app823.herokuapp.com/
-Project Blog: https://obliviate823.github.io/
-Github Repository: https://github.com/Obliviate823/823_FinalProject</p>
+<p>Product Web: https://streamlit-app823.herokuapp.com/<br>
+Project Blog: https://obliviate823.github.io/<br>
+Github Repository: https://github.com/Obliviate823/823_FinalProject  </p>
 <p><br/></p>
 <h2>Team Part</h2>
 <h3>1. Project Purpose</h3>
 <p>The target user of this project is hospitals. For patients who enter the ICU, the risk of death is predicted based on the test values of their laboratory items and the number of days that the ICU stays. For people who are at high risk of death, the hospital should focus on the changes in their vital signs and take preventive measures.</p>
 <h3>2. Data Processing</h3>
-<p>This project uses MIMIC III as the main dataset. We choose the variable “hospital_expire_flag” in ADMISSIONS.csv file as target variable, and we want to predict the death risk for patients who enter ICU for the first time. Therefore, our main purpose in data processing part is to find variables that related to the target variable for the next part of data analysis. To find these variables, we use five files: “LABEVENTS.csv”, “ICUSTAYS.csv”, “ADMISSIONS.csv”, “D_LABITEMS.csv”, “PATIENTS.csv”.
-<br/>
-<strong>Dataset Introduction</strong></p>
+<p>This project uses MIMIC III as the main dataset. We choose the variable “hospital_expire_flag” in ADMISSIONS.csv file as target variable, and we want to predict the death risk for patients who enter ICU for the first time. Therefore, our main purpose in data processing part is to find variables that related to the target variable for the next part of data analysis. To find these variables, we use five files: “LABEVENTS.csv”, “ICUSTAYS.csv”, “ADMISSIONS.csv”, “D_LABITEMS.csv”, “PATIENTS.csv”.  </p>
+<p><strong>Dataset Introduction</strong></p>
 <p>ICUSTAYS: Including the ICU information for each patient.</p>
 <p>LABEVENTS: Including the lab test results for each patient. </p>
 <p>ADMISSIONS: Including the hospital information for each patient and whether patient died in this hospitalization.</p>
@@ -77,13 +74,11 @@ For the SVM model, we try three kernels: Linear kernel, polynomial kernel and rb
 <h2>Individual Part</h2>
 <h3>Ruqian Cheng</h3>
 <p>I participated in the selection of data sets and machine learning algorithms, and was mainly responsible for the web application part, using streamlit to build a web dashboard and deploying the product to a cloud platform. Through this project, I become more familiar with various machine learning algorithms and mastered the construction of a web interactive platform.</p>
-<p><br/></p>
 <h3>Mingxuan Wang</h3>
 <p>Personally, I built the random forest and the XGBoost model, including tuning the parameter, reporting the AUC and ROC curve, and using SHAP to interpret the model. Moreover, I built the dashboard on web using streamlit to transform our model to a online machine learning model that can be used to predict the probability of death by entering patient’s lab data. </p>
 <p>When doing this project, I had a better understanding of the machine learning algorithms, especially bagging and boosting, by building models in a practical way. I found the process of tuning the parameters interesting because it help understanding the algorithm. For example, I learned Adaboost before, but I have no experience with XGBoost. By doing this project, I learned the algorithm of XGBoost as well as GDBT online, which I believe will benefit me a lot in the future. </p>
 <p>Moreover, I learned from the experience that the dataset affects a lot to the algorithm so we should choose algorithm based on our data. After the two models are built, I am surprised that the random forest model has the higher AUC than the XGBoost model because XGBoost usually works better. The reason of that became clear when I recalled the result of our exploratory data analysis: there are a lot of outliers in our data set and XGBoost is very sensitive to outliers. This helped me to understand that we need to choose our model based on the characteristics of our data set and no model always works better than others.</p>
 <p>In the process of building data dashboard, I learned to build a interactive dashboard in a web application. I learned to think from the view of the users: what layout and interactive buttons will improve their user experiences? By creating dashboards, I had some basic exposure to build interactive applications. For example, the situation where users are inputting some invalid strings need to be considered when building the interactive dashboard. It should be excluded or be fixed by using slide bars or dropdown menu. This process catches my interest and makes me want to dive into it.</p>
-<p><br/></p>
 <h3>Ruiqi Zhang</h3>
 <p>I am mainly responsible for data processing, the first part of model training and blog construction. In the data processing part, I find that for real data, it is very difficult to get a data set that is highly relevant. I try a lot of variables, and most of them has a very poor performance in modeling training. In the training of models, I learned more about the theory of SVM models.</p>                </article>
             </aside><!-- /#featured -->

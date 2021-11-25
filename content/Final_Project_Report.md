@@ -4,18 +4,16 @@ Author: Obliviate
 Slug: Final_Project_Report
 Category: Final Project Report
 
-# Final Project - Prediction of Patient's Risk of Death based on Lab Test after Entering ICU
+# Prediction of Patient's Risk of Death based on Lab Test after Entering ICU
 
-<br/>
 
-Team Name: Obliviate
+Team Name: Obliviate  
 Team Members: Ruqian Cheng, Mingxuan Wang, Ruiqi Zhang
 
-<br/>
 
-Product Web: https://streamlit-app823.herokuapp.com/
-Project Blog: https://obliviate823.github.io/
-Github Repository: https://github.com/Obliviate823/823_FinalProject
+Product Web: https://streamlit-app823.herokuapp.com/  
+Project Blog: https://obliviate823.github.io/  
+Github Repository: https://github.com/Obliviate823/823_FinalProject  
 
 <br/>
 
@@ -28,8 +26,8 @@ The target user of this project is hospitals. For patients who enter the ICU, th
 
 ### 2. Data Processing
 
-This project uses MIMIC III as the main dataset. We choose the variable “hospital_expire_flag” in ADMISSIONS.csv file as target variable, and we want to predict the death risk for patients who enter ICU for the first time. Therefore, our main purpose in data processing part is to find variables that related to the target variable for the next part of data analysis. To find these variables, we use five files: “LABEVENTS.csv”, “ICUSTAYS.csv”, “ADMISSIONS.csv”, “D_LABITEMS.csv”, “PATIENTS.csv”.
-<br/>
+This project uses MIMIC III as the main dataset. We choose the variable “hospital_expire_flag” in ADMISSIONS.csv file as target variable, and we want to predict the death risk for patients who enter ICU for the first time. Therefore, our main purpose in data processing part is to find variables that related to the target variable for the next part of data analysis. To find these variables, we use five files: “LABEVENTS.csv”, “ICUSTAYS.csv”, “ADMISSIONS.csv”, “D_LABITEMS.csv”, “PATIENTS.csv”.  
+
 **Dataset Introduction**
 
 ICUSTAYS: Including the ICU information for each patient.
@@ -94,7 +92,6 @@ By using SHAP, the model is interpreted. Urea Nitrogen, Potassium, Chloride are 
 
 I participated in the selection of data sets and machine learning algorithms, and was mainly responsible for the web application part, using streamlit to build a web dashboard and deploying the product to a cloud platform. Through this project, I become more familiar with various machine learning algorithms and mastered the construction of a web interactive platform.
 
-<br/>
 
 ### Mingxuan Wang
 
@@ -105,8 +102,6 @@ When doing this project, I had a better understanding of the machine learning al
 Moreover, I learned from the experience that the dataset affects a lot to the algorithm so we should choose algorithm based on our data. After the two models are built, I am surprised that the random forest model has the higher AUC than the XGBoost model because XGBoost usually works better. The reason of that became clear when I recalled the result of our exploratory data analysis: there are a lot of outliers in our data set and XGBoost is very sensitive to outliers. This helped me to understand that we need to choose our model based on the characteristics of our data set and no model always works better than others.
 
 In the process of building data dashboard, I learned to build a interactive dashboard in a web application. I learned to think from the view of the users: what layout and interactive buttons will improve their user experiences? By creating dashboards, I had some basic exposure to build interactive applications. For example, the situation where users are inputting some invalid strings need to be considered when building the interactive dashboard. It should be excluded or be fixed by using slide bars or dropdown menu. This process catches my interest and makes me want to dive into it.
-
-<br/>
 
 ### Ruiqi Zhang
 
